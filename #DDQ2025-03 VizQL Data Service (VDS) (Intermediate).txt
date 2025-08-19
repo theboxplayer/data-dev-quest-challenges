@@ -1,0 +1,269 @@
+-----------------------------------------
+JSON Request in Postman:
+-----------------------------------------
+
+{
+    "datasource": {
+        "datasourceLuid": "{{datasource-id}}"
+    },
+    "options": {
+        "debug": true
+    },
+    "query": {
+        "fields": [
+            {
+                "fieldCaption": "Region"
+            },
+            {
+                "fieldCaption": "Sales",
+                "function": "SUM"
+            }
+        ]
+    }
+}
+
+-----------------------------------------
+ JSON Response in Postman
+-----------------------------------------
+{
+    "data": [
+        {
+            "Region": "West",
+            "SUM(Sales)": 739813.6085
+        },
+        {
+            "Region": "East",
+            "SUM(Sales)": 691828.1679999988
+        },
+        {
+            "Region": "Central",
+            "SUM(Sales)": 503170.6728000007
+        },
+        {
+            "Region": "South",
+            "SUM(Sales)": 391721.90500000055
+        }
+    ]
+}
+
+-----------------------------------------
+Challenge
+Use the Top N filter and Context filter to get the data to look similar to Tableau workbook
+-----------------------------------------
+
+{
+    "datasource": {
+        "datasourceLuid": "{{datasource-id}}"
+    },
+    "options": {
+        "debug": true
+    },
+    "query": {
+        "fields": [
+            {
+                "fieldCaption": "Region",
+                "sortPriority": 2
+            },
+            {
+                "fieldCaption": "Sub-Category"
+            },
+            {
+                "fieldCaption": "Sales",
+                "function": "SUM",
+                "maxDecimalPlaces": 0
+            },
+            {
+                "fieldCaption": "GRAND TOTAL",
+                "calculation": "{FIXED [Sub-Category]: SUM([Sales])}",
+                "sortPriority": 1,
+                "sortDirection": "DESC",
+                "maxDecimalPlaces": 0
+
+            }
+        ],
+        "filters": [
+            {
+                "field": {
+                    "fieldCaption": "Region"
+                },
+                "filterType": "SET",
+                "values": [
+                    "East",
+                    "West"
+                ],
+                "exclude": false,
+                "context": true
+            },
+            {
+                "field": {
+                    "fieldCaption": "Sub-Category"
+                },
+                "filterType": "TOP",
+                "howMany": 10,
+                "fieldToMeasure": {
+                    "fieldCaption": "Sales",
+                    "function": "SUM"
+                },
+                "direction": "TOP"
+            }
+        ]
+    }
+}
+
+-----------------------------------------
+ JSON Response in Postman
+-----------------------------------------
+{
+    "data": [
+        {
+            "Region": "East",
+            "Sub-Category": "Chairs",
+            "SUM(Sales)": 97516,
+            "GRAND TOTAL": 204651
+        },
+        {
+            "Region": "West",
+            "Sub-Category": "Chairs",
+            "SUM(Sales)": 107135,
+            "GRAND TOTAL": 204651
+        },
+        {
+            "Region": "East",
+            "Sub-Category": "Phones",
+            "SUM(Sales)": 102362,
+            "GRAND TOTAL": 201135
+        },
+        {
+            "Region": "West",
+            "Sub-Category": "Phones",
+            "SUM(Sales)": 98773,
+            "GRAND TOTAL": 201135
+        },
+        {
+            "Region": "East",
+            "Sub-Category": "Storage",
+            "SUM(Sales)": 72361,
+            "GRAND TOTAL": 142894
+        },
+        {
+            "Region": "West",
+            "Sub-Category": "Storage",
+            "SUM(Sales)": 70533,
+            "GRAND TOTAL": 142894
+        },
+        {
+            "Region": "East",
+            "Sub-Category": "Tables",
+            "SUM(Sales)": 39926,
+            "GRAND TOTAL": 124949
+        },
+        {
+            "Region": "West",
+            "Sub-Category": "Tables",
+            "SUM(Sales)": 85023,
+            "GRAND TOTAL": 124949
+        },
+        {
+            "Region": "East",
+            "Sub-Category": "Binders",
+            "SUM(Sales)": 56303,
+            "GRAND TOTAL": 112264
+        },
+        {
+            "Region": "West",
+            "Sub-Category": "Binders",
+            "SUM(Sales)": 55961,
+            "GRAND TOTAL": 112264
+        },
+        {
+            "Region": "East",
+            "Sub-Category": "Machines",
+            "SUM(Sales)": 66106,
+            "GRAND TOTAL": 109237
+        },
+        {
+            "Region": "West",
+            "Sub-Category": "Machines",
+            "SUM(Sales)": 43131,
+            "GRAND TOTAL": 109237
+        },
+        {
+            "Region": "East",
+            "Sub-Category": "Accessories",
+            "SUM(Sales)": 45033,
+            "GRAND TOTAL": 106147
+        },
+        {
+            "Region": "West",
+            "Sub-Category": "Accessories",
+            "SUM(Sales)": 61114,
+            "GRAND TOTAL": 106147
+        },
+        {
+            "Region": "East",
+            "Sub-Category": "Copiers",
+            "SUM(Sales)": 54437,
+            "GRAND TOTAL": 104186
+        },
+        {
+            "Region": "West",
+            "Sub-Category": "Copiers",
+            "SUM(Sales)": 49749,
+            "GRAND TOTAL": 104186
+        },
+        {
+            "Region": "East",
+            "Sub-Category": "Bookcases",
+            "SUM(Sales)": 43964,
+            "GRAND TOTAL": 80305
+        },
+        {
+            "Region": "West",
+            "Sub-Category": "Bookcases",
+            "SUM(Sales)": 36341,
+            "GRAND TOTAL": 80305
+        },
+        {
+            "Region": "East",
+            "Sub-Category": "Appliances",
+            "SUM(Sales)": 34790,
+            "GRAND TOTAL": 65106
+        },
+        {
+            "Region": "West",
+            "Sub-Category": "Appliances",
+            "SUM(Sales)": 30316,
+            "GRAND TOTAL": 65106
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
